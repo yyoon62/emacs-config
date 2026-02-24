@@ -1,0 +1,12 @@
+auto-save-list/
+elpa/
+straight/
+transient/
+image-dired/
+lsp-bridge-env/
+tramp
+*.eld
+bookmarks
+*~
+\#*\#
+.\#*
