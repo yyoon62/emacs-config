@@ -57,10 +57,10 @@
 
 (add-to-list 'load-path "~/.emacs.d/config")
 (require 'ui)
+(require 'shell-config)
 (require 'ai)
 (require 'texttools)
 (require 'ide)
-(require 'shell-config)
 (require 'languages)
 (require 'global)
 (require 'completion-config)
