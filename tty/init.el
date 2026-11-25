@@ -178,7 +178,20 @@
         (agent-shell-anthropic-make-authentication :login t))
   (setq agent-shell-anthropic-default-session-mode-id "bypassPermissions")
   ;; Go straight to Claude instead of the 24-agent picker.
-  (setq agent-shell-preferred-agent-config 'claude-code))
+  (setq agent-shell-preferred-agent-config 'claude-code)
+  ;; evil-collection makes RET a newline in insert state and sends only from
+  ;; normal state.  Send with RET in insert state too; C-j inserts a newline
+  ;; (S-RET can't be told apart from RET in a terminal).  This runs after
+  ;; evil-collection's own agent-shell setup, so it wins.
+  (with-eval-after-load 'evil
+    (evil-define-key 'insert agent-shell-mode-map
+      (kbd "RET") (if (fboundp 'evil-collection-agent-shell-submit)
+                      #'evil-collection-agent-shell-submit
+                    #'agent-shell-submit)
+      (kbd "<return>") (if (fboundp 'evil-collection-agent-shell-submit)
+                           #'evil-collection-agent-shell-submit
+                         #'agent-shell-submit)
+      (kbd "C-j") #'newline)))
 
 ;;;; Machine-local additions
 
