@@ -68,3 +68,6 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+
+;; Machine-specific additions that stay out of this public repo (e.g. agent-tree).
+(load (expand-file-name "local.el" user-emacs-directory) 'noerror 'nomessage)
