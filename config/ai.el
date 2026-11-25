@@ -38,7 +38,10 @@
 (use-package agent-shell
   :ensure t
   :straight (:type git :host github :repo "xenodium/agent-shell")
-  :bind (("C-c a" . agent-shell))
+  ;; C-c A / C-c O start a Claude / Codex (OpenAI) shell directly, skipping the picker.
+  :bind (("C-c a" . agent-shell)
+         ("C-c A" . agent-shell-anthropic-start-claude-code)
+         ("C-c O" . agent-shell-openai-start-codex))
   :config
   ;; Authenticate with Claude Code's login (subscription); use
   ;; :api-key instead if you prefer ANTHROPIC_API_KEY.
