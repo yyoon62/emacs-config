@@ -51,6 +51,29 @@
 (load custom-file 'noerror 'nomessage)
 
 (load-theme 'modus-vivendi t)
+
+;; The terminal, not Emacs, draws the cursor, so it keeps iTerm's profile
+;; color (black on this dark theme).  Set it with OSC 12 on each terminal
+;; frame and restore the terminal's default with OSC 112 when it closes.
+(defun my/tty-set-cursor-color (&optional frame)
+  (let ((frame (or frame (selected-frame))))
+    (unless (display-graphic-p frame)
+      (send-string-to-terminal
+       (format "\e]12;%s\a" (or (face-background 'cursor frame t) "white"))
+       (frame-terminal frame)))))
+
+(defun my/tty-reset-cursor-color (frame)
+  (when (and (not (display-graphic-p frame))
+             (terminal-live-p (frame-terminal frame))
+             ;; only when the last frame on that terminal goes away
+             (null (cdr (seq-filter
+                         (lambda (f) (eq (frame-terminal f) (frame-terminal frame)))
+                         (frame-list)))))
+    (send-string-to-terminal "\e]112\a" (frame-terminal frame))))
+
+(add-hook 'server-after-make-frame-hook #'my/tty-set-cursor-color)
+(add-hook 'tty-setup-hook #'my/tty-set-cursor-color)
+(add-hook 'delete-frame-functions #'my/tty-reset-cursor-color)
 (xterm-mouse-mode 1)                     ; click, scroll, resize splits
 (global-set-key (kbd "<mouse-4>") #'scroll-down-line)
 (global-set-key (kbd "<mouse-5>") #'scroll-up-line)
