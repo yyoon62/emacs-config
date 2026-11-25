@@ -64,6 +64,7 @@
 (require 'languages)
 (require 'global)
 (require 'completion-config)
+(require 'org-config)
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
