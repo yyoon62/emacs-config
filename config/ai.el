@@ -12,10 +12,10 @@
 (use-package agent-shell
   :ensure t
   :straight (:type git :host github :repo "xenodium/agent-shell")
-  ;; C-c A / C-c O start a Claude / Codex (OpenAI) shell directly, skipping the picker.
+  ;; C-c a picks an agent; C-c A / C-c O start Claude / OpenCode directly.
   :bind (("C-c a" . agent-shell)
          ("C-c A" . agent-shell-anthropic-start-claude-code)
-         ("C-c O" . agent-shell-openai-start-codex))
+         ("C-c O" . agent-shell-opencode-start-agent))
   :config
   ;; Authenticate with Claude Code's login (subscription); use
   ;; :api-key instead if you prefer ANTHROPIC_API_KEY.
@@ -29,12 +29,11 @@
   (setq agent-shell-opencode-authentication
         (agent-shell-opencode-make-authentication :none t))
   ;; (setq agent-shell-opencode-default-model-id "openai/gpt-5")
-  ;; Only offer the agents I use when agent-shell asks which one to start.
+  ;; Only offer the agents I use when agent-shell asks which one to start
+  ;; (Codex has no key of its own any more; it's here in the picker).
   (setq agent-shell-agent-configs
         '(agent-shell-anthropic-make-claude-code-config
-          agent-shell-opencode-make-agent-config)))
-
-;; C-c a: agent-shell (pick Claude or OpenCode); C-c A: straight to OpenCode.
-(global-set-key (kbd "C-c A") #'agent-shell-opencode-start-agent)
+          agent-shell-opencode-make-agent-config
+          agent-shell-openai-make-codex-config)))
 
 (provide 'ai)
