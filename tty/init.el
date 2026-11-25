@@ -136,7 +136,12 @@
 (use-package evil
   :init (setq evil-want-integration t
               evil-want-keybinding nil
-              evil-undo-system 'undo-redo)
+              evil-undo-system 'undo-redo
+              ;; C-w is the window prefix (C-w w, C-w h/j/k/l) in every
+              ;; state, not just normal: agent-shell sits in insert state.
+              ;; Delete a word with M-DEL instead.
+              evil-want-C-w-delete nil
+              evil-want-C-w-in-emacs-state t)
   :config (evil-mode 1))
 
 (use-package evil-collection
@@ -179,6 +184,10 @@
   (setq agent-shell-anthropic-default-session-mode-id "bypassPermissions")
   ;; Go straight to Claude instead of the 24-agent picker.
   (setq agent-shell-preferred-agent-config 'claude-code)
+  ;; OpenCode (other providers' models) on C-c A; log in with `opencode auth login'.
+  (setq agent-shell-opencode-authentication
+        (agent-shell-opencode-make-authentication :none t))
+  (global-set-key (kbd "C-c A") #'agent-shell-opencode-start-agent)
   ;; evil-collection makes RET a newline in insert state and sends only from
   ;; normal state.  Send with RET in insert state too; C-j inserts a newline
   ;; (S-RET can't be told apart from RET in a terminal).  This runs after

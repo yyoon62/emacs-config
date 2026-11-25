@@ -14,6 +14,8 @@ From the Mac: `ebox` (a script in `~/.local/bin` on the Mac; it runs
 - `C-c a` starts or switches to a Claude agent-shell session (Bypass Permissions mode).
   `RET` sends (in insert or normal state); `C-j` inserts a newline.
   `C-c C-c` interrupts.
+- `C-c A` starts an OpenCode agent-shell session (other providers' models; needs
+  `opencode` installed and `opencode auth login` on the Pi).
 - Search: `C-x b` buffers, `C-c s l` line, `C-c s r` ripgrep, `C-c s f` fd,
   `C-c p` projectile (`C-c p f` file, `C-c p p` project), `C-x g` magit.
 

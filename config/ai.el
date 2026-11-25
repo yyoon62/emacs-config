@@ -22,6 +22,19 @@
   (setq agent-shell-anthropic-authentication
         (agent-shell-anthropic-make-authentication :login t))
   ;; Start every new Claude session in "Bypass Permissions" mode.
-  (setq agent-shell-anthropic-default-session-mode-id "bypassPermissions"))
+  (setq agent-shell-anthropic-default-session-mode-id "bypassPermissions")
+  ;; OpenCode (brew install opencode): other providers' models.  Log in to
+  ;; providers with `opencode auth login'; the model is picked per session
+  ;; (C-c C-v in the shell) or set below as "provider/model".
+  (setq agent-shell-opencode-authentication
+        (agent-shell-opencode-make-authentication :none t))
+  ;; (setq agent-shell-opencode-default-model-id "openai/gpt-5")
+  ;; Only offer the agents I use when agent-shell asks which one to start.
+  (setq agent-shell-agent-configs
+        '(agent-shell-anthropic-make-claude-code-config
+          agent-shell-opencode-make-agent-config)))
+
+;; C-c a: agent-shell (pick Claude or OpenCode); C-c A: straight to OpenCode.
+(global-set-key (kbd "C-c A") #'agent-shell-opencode-start-agent)
 
 (provide 'ai)
