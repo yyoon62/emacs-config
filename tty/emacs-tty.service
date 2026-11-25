@@ -1,0 +1,19 @@
+[Unit]
+Description=Terminal Emacs daemon (agent-shell host; open with `ebox` or `e`)
+Documentation=https://github.com/yyoon62/emacs-config/tree/main/tty
+
+[Service]
+# simple, not notify: this Emacs build has no libsystemd.
+Type=simple
+Environment=PATH=%h/.local/node/bin:%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=LANG=en_US.UTF-8
+# Lets terminal frames use 24-bit color (iTerm2 supports it).
+Environment=COLORTERM=truecolor
+ExecStart=%h/.local/bin/emacs --fg-daemon --init-directory=%h/.config/emacs-tty
+ExecStop=%h/.local/bin/emacsclient --eval "(kill-emacs)"
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target
