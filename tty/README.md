@@ -12,7 +12,7 @@ From the Mac: `ebox` (a script in `~/.local/bin` on the Mac; it runs
 - `C-x 5 0` leaves: closes this terminal frame only. The daemon and any agent
   sessions keep running, and the next `ebox` picks up where you left off.
 - `C-c a` starts or switches to a Claude agent-shell session (Bypass Permissions mode).
-  With evil, `RET` in insert state is a newline; press `ESC` then `RET` to send.
+  `RET` sends (in insert or normal state); `C-j` inserts a newline.
   `C-c C-c` interrupts.
 - Search: `C-x b` buffers, `C-c s l` line, `C-c s r` ripgrep, `C-c s f` fd,
   `C-c p` projectile (`C-c p f` file, `C-c p p` project), `C-x g` magit.
