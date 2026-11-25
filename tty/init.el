@@ -136,7 +136,12 @@
 (use-package evil
   :init (setq evil-want-integration t
               evil-want-keybinding nil
-              evil-undo-system 'undo-redo)
+              evil-undo-system 'undo-redo
+              ;; C-w is the window prefix (C-w w, C-w h/j/k/l) in every
+              ;; state, not just normal: agent-shell sits in insert state.
+              ;; Delete a word with M-DEL instead.
+              evil-want-C-w-delete nil
+              evil-want-C-w-in-emacs-state t)
   :config (evil-mode 1))
 
 (use-package evil-collection
