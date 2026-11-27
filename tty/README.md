@@ -11,7 +11,8 @@ From the Mac: `ebox` (a script in `~/.local/bin` on the Mac; it runs
 
 - `C-x 5 0` leaves: closes this terminal frame only. The daemon and any agent
   sessions keep running, and the next `ebox` picks up where you left off.
-- `C-c a` starts or switches to a Claude agent-shell session (Bypass Permissions mode).
+- `C-c a` picks an agent (Claude, OpenCode, Codex); `C-c A` starts Claude
+  directly (Bypass Permissions mode). Same keys as on the Mac.
   `RET` sends (in insert or normal state); `C-j` inserts a newline.
   `C-c C-c` interrupts.
 - `C-c O` starts an OpenCode agent-shell session (other providers' models; needs

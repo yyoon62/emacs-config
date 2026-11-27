@@ -176,19 +176,24 @@
 
 (use-package agent-shell
   :straight (:type git :host github :repo "xenodium/agent-shell")
-  :bind (("C-c a" . agent-shell))
+  ;; Same keys as the Mac: C-c a picks an agent; C-c A / C-c O start
+  ;; Claude / OpenCode directly.
+  :bind (("C-c a" . agent-shell)
+         ("C-c A" . agent-shell-anthropic-start-claude-code)
+         ("C-c O" . agent-shell-opencode-start-agent))
   :config
   ;; Use the Claude Code login on this machine (subscription), not an API key.
   (setq agent-shell-anthropic-authentication
         (agent-shell-anthropic-make-authentication :login t))
   (setq agent-shell-anthropic-default-session-mode-id "bypassPermissions")
-  ;; Go straight to Claude instead of the 24-agent picker.
-  (setq agent-shell-preferred-agent-config 'claude-code)
-  ;; OpenCode (other providers' models) on C-c O, as on the Mac; log in with
-  ;; `opencode auth login'.
+  ;; Only offer the agents I use in the picker (as on the Mac).
+  (setq agent-shell-agent-configs
+        '(agent-shell-anthropic-make-claude-code-config
+          agent-shell-opencode-make-agent-config
+          agent-shell-openai-make-codex-config))
+  ;; OpenCode (other providers' models); log in with `opencode auth login'.
   (setq agent-shell-opencode-authentication
         (agent-shell-opencode-make-authentication :none t))
-  (global-set-key (kbd "C-c O") #'agent-shell-opencode-start-agent)
   ;; evil-collection makes RET a newline in insert state and sends only from
   ;; normal state.  Send with RET in insert state too; C-j inserts a newline
   ;; (S-RET can't be told apart from RET in a terminal).  This runs after
