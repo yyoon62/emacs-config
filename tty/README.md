@@ -33,6 +33,14 @@ Settings > General > Selection > "Applications in terminal may access clipboard"
 Machine-specific additions (e.g. agent-tree) go in
 `~/.config/emacs-tty/local.el` on the Pi, which is loaded last.
 
+`C-c v t` opens agent-tree (a tree of existing agent sessions on the Pi). It is
+not in this public repo: on the Pi, clone the private `yyoon62/agent-tree` to
+`~/code/agent-tree` and put this in `~/.config/emacs-tty/local.el`:
+
+    (add-to-list 'load-path (expand-file-name "~/code/agent-tree"))
+    (require 'agent-tree)
+    (setopt agent-tree-agents '(claude-code opencode))
+
 ## Install / update on the Pi
 
     sh ~/src/emacs-config/tty/install-pi.sh        # or curl the script first
